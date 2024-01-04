@@ -1,44 +1,44 @@
 
 
-echo -e"\e[35m Disable Default Version NodeJS\e[om"
+echo -e "\e[35mDisable Default Version NodeJS\e[0m"
 dnf module disable nodejs -y
 
-echo -e "\e[35m Enable NodeJS18 Version\e[om"
+echo -e "\e[35mEnable NodeJS18 Version\e[0m"
 dnf module enable nodejs:18 -y
 
-echo -e "\e[35m Install NodeJS\e[om"
+echo -e "\e[35mInstall NodeJS\e[0m"
 dnf install nodejs -y
 
-echo -e "\e[35m Configure Backend Service\e[om"
+echo -e "\e[35mConfigure Backend Service\e[0m"
 cp backend.service /etc/systemd/system/backend.service
 
-echo -e "\e[35m Adding Application User\e[om"
+echo -e "\e[35mAdding Application User\e[0m"
 useradd expense
 
-echo -e "\e[35m Remove Existing App Content\e[om"
+echo -e "\e[35mRemove Existing App Content\e[0m"
 rm -rf /app
 
-echo -e "\e[35m Create Application Directory\e[om"
+echo -e "\e[35mCreate Application Directory\e[0m"
 mkdir /app
 
-echo -e "\e[35m Download Application Content\e[om"
+echo -e "\e[35mDownload Application Content\e[0m"
 curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/backend.zip
 
 cd /app
 
-echo -e "\e[35m Extracting Application\e[om"
+echo -e "\e[35mExtracting Application\e[0m"
 unzip /tmp/backend.zip
 
-echo -e "\e[35m Downloading Application Dependencies\e[om"
+echo -e "\e[35mDownloading Application Dependencies\e[0m"
 npm install
 
-echo -e "\e[35m Reloading SystemD and Start Backend Service\e[om"
+echo -e "\e[35mReloading SystemD and Start Backend Service\e[0m"
 systemctl daemon-reload
 systemctl enable backend
 systemctl restart backend
 
-echo -e "\e[35m Install MySQL Client\e[om"
+echo -e "\e[35mInstall MySQL Client\e[0m"
 dnf install mysql -y
 
-echo -e "\e[35m Load Schema\e[om"
+echo -e "\e[35mLoad Schema\e[0m"
 mysql -h mysql-dev.raoulconstant.com -uroot -pExpenseApp@1 < /app/schema/backend.sql
