@@ -11,7 +11,7 @@ rm -rf /app
 mkdir /app
 
 curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/backend.zip
-pwd
+
 cd /app
 
 unzip /tmp/backend.zip
@@ -26,4 +26,4 @@ systemctl restart backend
 
 dnf install mysql -y
 
-mysql -h -172-31-35-0 -uroot -pExpenseApp@1 < /app/schema/backend.sql
+mysql -h mysql-dev.raoulconstant.com -uroot -pExpenseApp@1 < /app/schema/backend.sql
