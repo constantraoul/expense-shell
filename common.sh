@@ -23,6 +23,7 @@ App_Prereq() {
 
   Head "Extracting Application Content"
   unzip /tmp/${component}.zip &>>$log_file
+  Stat $?
 
 }
 
